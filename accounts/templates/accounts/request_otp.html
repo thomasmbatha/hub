@@ -1,0 +1,21 @@
+{% extends "layouts/base-auth.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2>Login with Phone</h2>
+
+  {% if error %}
+    <p class="text-danger">{{ error }}</p>
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+      <input type="text" name="phone" class="form-control" placeholder="Enter phone number" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Send OTP</button>
+  </form>
+</div>
+{% endblock %}
