@@ -1,0 +1,31 @@
+{% extends "layouts/base.html" %}
+
+{% block content %}
+
+<div class="container py-5">
+
+  <h3>Create Your Employee Profile</h3>
+
+  <form method="POST">
+    {% csrf_token %}
+
+    <input name="first_name" placeholder="First Name" class="form-control mb-2">
+    <input name="last_name" placeholder="Last Name" class="form-control mb-2">
+    <input name="email" placeholder="Email" class="form-control mb-2">
+
+    <input name="contact_number" placeholder="Phone" class="form-control mb-2">
+    <input name="home_address" placeholder="Address" class="form-control mb-2">
+
+    <input name="department" placeholder="Department" class="form-control mb-2">
+    <input name="job_title" placeholder="Job Title" class="form-control mb-2">
+    <input name="shift" placeholder="Shift" class="form-control mb-2">
+    <input name="manager" placeholder="Manager" class="form-control mb-2">
+
+    <button type="submit" class="btn btn-primary">
+      Save Profile
+    </button>
+  </form>
+
+</div>
+
+{% endblock %}

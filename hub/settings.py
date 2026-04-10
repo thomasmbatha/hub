@@ -61,6 +61,9 @@ INSTALLED_APPS = [
 
     # home
     'home',
+
+    # home
+    'employees',
 ]
 
 MIDDLEWARE = [

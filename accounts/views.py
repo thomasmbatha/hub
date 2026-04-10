@@ -4,8 +4,9 @@ from django.shortcuts import render, redirect
 from django.utils import timezone
 from datetime import timedelta
 from django.conf import settings
+from employees.models import Employee
 
-from django.contrib.auth import login, logout, get_user_model
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib.auth.views import (
     LoginView, PasswordResetView,
     PasswordResetConfirmView, PasswordChangeView
@@ -27,20 +28,28 @@ User = get_user_model()
 # ======================================================
 # AUTH VIEWS
 # ======================================================
-
 def register(request):
     if request.method == 'POST':
         form = RegistrationForm(request.POST)
+
         if form.is_valid():
-            user = form.save(commit=False)
-            user.role = 'employee'
-            user.save()
-            return redirect('login')
+            user = form.save()
+
+            # 🔥 IMPORTANT FIX: attach backend manually
+            user = authenticate(
+                username=user.username,
+                password=request.POST.get("password1")
+            )
+
+            if user:
+                login(request, user, backend='django.contrib.auth.backends.ModelBackend')
+
+            return redirect('create_profile')
+
     else:
         form = RegistrationForm()
 
     return render(request, 'accounts/register.html', {'form': form})
-
 
 def logout_view(request):
     logout(request)
