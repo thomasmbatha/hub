@@ -1,21 +1,110 @@
 {% extends "layouts/base-auth.html" %}
+{% block title %}Request OTP{% endblock %}
+{% block navbar %}{% endblock %}
 {% load static %}
 {% load widget_tweaks %}
 
 {% block content %}
-<div class="container mt-5">
-  <h2>Login with Phone</h2>
 
-  {% if error %}
-    <p class="text-danger">{{ error }}</p>
-  {% endif %}
+<main class="main-content mt-0">
+  <section class="min-vh-100 mb-8">
 
-  <form method="POST">
-    {% csrf_token %}
-    <div class="mb-3">
-      <input type="text" name="phone" class="form-control" placeholder="Enter phone number" required>
+    <!-- Background -->
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
+         style="background-image: url('{% static 'assets/img/curved-images/otp_curve.jpg' %}');">
+      <span class="mask bg-gradient-dark opacity-7"></span>
+
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-5 text-center mx-auto">
+            <h1 class="text-white mb-2 mt-5">Phone Login</h1>
+            <p class="text-lead text-white">
+              Enter your phone number to receive an OTP
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-    <button type="submit" class="btn btn-primary">Send OTP</button>
-  </form>
-</div>
+
+    <!-- Form -->
+    <div class="container">
+      <div class="row mt-lg-n10 mt-md-n11 mt-n10 justify-content-center">
+        <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
+
+          <div class="card z-index-0">
+            <div class="card-body">
+
+              {% if error %}
+                <div class="alert alert-danger text-white">
+                  {{ error }}
+                </div>
+              {% endif %}
+
+              <form method="POST">
+                {% csrf_token %}
+
+                <div class="mb-3">
+                  <input type="text"
+                         name="phone"
+                         class="form-control"
+                         placeholder="e.g. 081 234 5678"
+                         required>
+                </div>
+
+                <div class="text-center">
+                  <button type="submit"
+                          class="btn w-100 my-4 mb-2"
+                          style="background-color:#04154d;color:#fff;font-weight:600;border-radius:12px;">
+                    Send OTP
+                  </button>
+
+                  <div class="text-center mt-2">
+                    <small id="timerText" class="text-muted"></small>
+                  </div>
+                </div>
+
+              </form>
+
+              <p class="text-sm mt-3 mb-0 text-center">
+                Back to
+                <a href="{% url 'login' %}" class="text-dark font-weight-bolder">
+                  Sign in
+                </a>
+              </p>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </section>
+</main>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  const cooldown = Number("{{ cooldown|default:0 }}");
+  const timerText = document.getElementById("timerText");
+
+  if (cooldown && cooldown > 0) {
+    let timeLeft = cooldown;
+
+    function updateTimer() {
+      if (timeLeft <= 0) {
+        timerText.innerHTML = "";
+        return;
+      }
+
+      timerText.innerHTML = `You can request a new OTP in ${timeLeft}s`;
+      timeLeft--;
+
+      setTimeout(updateTimer, 1000);
+    }
+
+    updateTimer();
+  }
+</script>
 {% endblock %}
