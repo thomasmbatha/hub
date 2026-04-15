@@ -62,8 +62,11 @@ INSTALLED_APPS = [
     # home
     'home',
 
-    # home
+    # employees
     'employees',
+
+    # uniform
+    'uniform',
 ]
 
 MIDDLEWARE = [

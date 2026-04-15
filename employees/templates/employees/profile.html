@@ -8,24 +8,111 @@
 ========================= -->
 {% if employee %}
 
+<style>
+  /* =========================
+   AIR TRAFFIC CONTROL HEADER
+========================= */
+
+.atc-header {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 20% 20%, #00e5ff 0%, #001b3d 40%, #000814 100%);
+}
+
+/* DARK ATMOSPHERE MASK */
+.atc-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(0,0,0,0.6), rgba(0,120,255,0.15), rgba(0,0,0,0.8));
+  backdrop-filter: blur(2px);
+}
+
+/* =========================
+   RADAR SCAN EFFECT
+========================= */
+.radar-scan {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    rgba(0, 229, 255, 0.2),
+    transparent
+  );
+  animation: radarSpin 4s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes radarSpin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* =========================
+   FLIGHT PATH LINES
+========================= */
+.flight-lines {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background-image: linear-gradient(90deg, transparent 95%, rgba(0,229,255,0.15) 100%);
+  background-size: 60px 100%;
+  animation: moveLines 6s linear infinite;
+  opacity: 0.2;
+}
+
+@keyframes moveLines {
+  from { transform: translateX(0); }
+  to { transform: translateX(-60px); }
+}
+
+
+
+/* =========================
+   AVATAR GLOW
+========================= */
+.atc-avatar img {
+  border: 2px solid rgba(0, 229, 255, 0.6);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+}
+
+/* =========================
+   TEXT GLOW (COCKPIT HUD)
+========================= */
+.atc-text-glow {
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.7);
+}
+
+/* =========================
+   BUTTON (FLIGHT CONTROL STYLE)
+========================= */
+</style>
 <!-- =========================
-     PROFILE HEADER SECTION
+     AVIATION CONTROL TOWER HEADER
 ========================= -->
 <div class="container-fluid">
-  <div class="page-header min-height-250 border-radius-lg mt-4 d-flex flex-column justify-content-end">
-    
-    <!-- Background overlay -->
-    <span class="mask bg-primary opacity-9"></span>
-    
-    <!-- Header content -->
-    <div class="w-100 position-relative p-3">
+  <div class="page-header min-height-250 border-radius-lg mt-4 d-flex flex-column justify-content-end atc-header">
+
+    <!-- SKY LAYER -->
+    <span class="mask atc-mask"></span>
+
+    <!-- RADAR + MOTION LAYERS -->
+    <div class="radar-scan"></div>
+    <div class="flight-lines"></div>
+
+    <!-- CONTENT GLASS PANEL -->
+    <div class="w-100 position-relative p-3 atc-glass">
       <div class="d-flex justify-content-between align-items-end">
 
-        <!-- LEFT: Profile Image + Name -->
+        <!-- LEFT -->
         <div class="d-flex align-items-center">
-          
-          <!-- Profile Avatar -->
-          <div class="avatar avatar-xl position-relative me-3">
+
+          <div class="avatar avatar-xl position-relative me-3 atc-avatar">
             {% if user.profile_picture %}
               <img src="{{ user.profile_picture.url }}" class="w-100 border-radius-lg shadow-sm">
             {% else %}
@@ -33,29 +120,22 @@
             {% endif %}
           </div>
 
-          <!-- Name + Role -->
           <div>
-            <h5 class="mb-1 text-white font-weight-bolder">
+            <h5 class="mb-1 text-white font-weight-bolder atc-text-glow">
               {{ employee.first_name }} {{ employee.last_name }}
             </h5>
-            <p class="mb-0 text-white text-sm">
-              {{ employee.job_title }} / Shedules
+            <p class="mb-0 text-white text-sm opacity-8">
+              ✈ AIR TRAFFIC OPS | {{ employee.job_title }}
             </p>
           </div>
+
         </div>
 
-        <!-- RIGHT: Action Button -->
-        <div class="d-flex align-items-center">
-          <a href="#edit-profile" class="btn btn-outline-white btn-sm">
-            All Shifts
-          </a>
-        </div>
 
       </div>
     </div>
   </div>
 </div>
-
 <!-- =========================
      MAIN CONTENT SECTION
 ========================= -->

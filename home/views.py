@@ -10,11 +10,8 @@ from django.shortcuts import render
 # ----------------------
 def index(request):
     """Render the dashboard/homepage."""
-    return render(request, 'pages/index.html', { 'segment': 'dashboard' })
+    return render(request, 'pages/index.html', { 'segment': 'home' })
 
-def billing(request):
-    """Render the billing page."""
-    return render(request, 'pages/billing.html', { 'segment': 'billing' })
 
 def tables(request):
     """Render the tables page."""
@@ -28,6 +25,4 @@ def rtl(request):
     """Render the right-to-left layout page."""
     return render(request, 'pages/rtl.html', { 'segment': 'rtl' })
 
-def profile(request):
-    """Render the user profile page."""
-    return render(request, 'pages/profile.html', { 'segment': 'profile' })
+

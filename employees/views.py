@@ -5,12 +5,17 @@ from .forms import EmployeeForm
 from django.utils import timezone
 
 def profile(request):
-    employee = Employee.objects.filter(user=request.user).first()
+    employee = None
 
-    return render(request, "employees/profile.html", {
-        "employee": employee
-    })
+    if request.user.is_authenticated:
+        employee = Employee.objects.filter(user=request.user).first()
 
+    context = {
+        "employee": employee,
+        "segment": "profile"
+    }
+
+    return render(request, "employees/profile.html", context)
 
 def edit_profile(request):
     return render(request, "employees/edit_profile.html")

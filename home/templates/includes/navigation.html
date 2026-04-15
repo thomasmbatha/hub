@@ -1,5 +1,29 @@
 {% load static replace_value %}
 
+<style>
+    :root {
+    --brand-primary: #0affe6;
+    --brand-dark: #04154d;
+    --brand-accent: #7928CA;
+  }
+
+.gradient-text {
+  /* Gradient colors */
+  background: linear-gradient(45deg, #0affe6, #7928CA, #04154d);
+
+  /* REQUIRED for gradient text */
+  -webkit-background-clip: text;
+  background-clip: text;
+
+  /* IMPORTANT fix for browsers */
+  -webkit-text-fill-color: transparent;
+
+  /* Helps prevent Bootstrap override */
+  display: inline-block;
+}
+  
+</style>
+
 <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" navbar-scroll="true">
     <div class="container-fluid py-1 px-3">
       <nav aria-label="breadcrumb">
@@ -7,7 +31,7 @@
           <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Pages</a></li>
           <li class="breadcrumb-item text-sm text-dark active" aria-current="page">{{ segment|replace_value:"_" }}</li>
         </ol>
-        <h6 class="font-weight-bolder mb-0">{{ segment|replace_value:"_" }}</h6>
+        <h6 class="font-weight-bolder mb-0 gradient-text">{{ segment|replace_value:"_" }}</h6>
       </nav>
       <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
         <div class="ms-md-auto pe-md-3 d-flex align-items-center">

@@ -1,0 +1,225 @@
+{% extends "layouts/base.html" %}
+{% load static replace_value %}
+
+{% block content %}
+
+<!-- ===================================================== -->
+<!-- 🎨 BRAND STYLE -->
+<!-- ===================================================== -->
+<style>
+  :root {
+    --brand-primary: #0affe6;
+    --brand-dark: #04154d;
+    --brand-accent: #7928CA;
+  }
+
+  .gradient-text {
+    background: linear-gradient(45deg, var(--brand-primary), var(--brand-accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .btn-brand {
+    background: linear-gradient(45deg, var(--brand-primary), var(--brand-accent));
+    border: none;
+    color: white;
+  }
+
+  .product-card {
+    transition: 0.3s ease;
+  }
+
+  .product-card:hover {
+    transform: translateY(-6px);
+  }
+
+  /* =========================
+   CLEAN CATEGORY NAV
+========================= */
+
+.category-nav-clean {
+  gap: 10px;
+}
+
+/* base style */
+.category-nav-clean .nav-link {
+  color: #555;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* hover */
+.category-nav-clean .nav-link:hover {
+  color: #111;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* active (simple + elegant) */
+.category-nav-clean .nav-link.active {
+  color: #000;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+/* subtle underline indicator */
+.category-nav-clean .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 25%;
+  bottom: -4px;
+  width: 50%;
+  height: 2px;
+  background: var(--brand-primary);
+  border-radius: 2px;
+}
+</style>
+
+
+<!-- ===================================================== -->
+<!-- 🔝 NAVBAR (WITH CATEGORY PAGINATION) -->
+<!-- ===================================================== -->
+<nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl">
+
+  <div class="container-fluid py-1 px-3">
+
+
+
+    <!-- CENTER CATEGORY NAV (CLEAN + RESPONSIVE) -->
+    <div class="w-100">
+      <ul class="nav justify-content-center category-nav-clean flex-wrap">
+
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Men</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">Women</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#">Other</a>
+        </li>
+
+      </ul>
+    </div>
+
+
+  </div>
+</nav>
+
+
+<!-- ===================================================== -->
+<!-- 🛍️ UNIFORM STORE -->
+<!-- ===================================================== -->
+<div class="container-fluid py-4">
+
+  <div class="row">
+
+    <!-- 🔁 PRODUCT CARD -->
+    {% for i in "12345678" %}
+    <div class="col-lg-3 col-md-6 mb-4">
+
+      <div class="card product-card shadow-sm border-0 h-100">
+
+        <!-- IMAGE -->
+        <img src="{% static 'assets/img/team-' %}{{ forloop.counter }}.jpg"
+             class="w-100 rounded-top">
+
+        <!-- BODY -->
+        <div class="card-body">
+
+          <h6>Premium Uniform {{ forloop.counter }}</h6>
+          <small class="text-muted">Category</small>
+
+          <h5 class="mt-2">$ {{ forloop.counter }}0</h5>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="card-footer bg-transparent border-0 d-flex justify-content-between">
+
+          <button class="btn btn-sm btn-outline-dark">View</button>
+          <button class="btn btn-sm btn-brand">Buy</button>
+
+        </div>
+
+      </div>
+
+    </div>
+    {% endfor %}
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- 📊 EXTRA SECTION (CLEAN DASHBOARD FEEL) -->
+  <!-- ===================================================== -->
+  <div class="row mt-4">
+
+    <div class="col-md-3 mb-3">
+      <div class="card text-center shadow-sm p-3">
+        <h6>Total Orders</h6>
+        <h4 class="gradient-text">1,245</h4>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card text-center shadow-sm p-3">
+        <h6>Revenue</h6>
+        <h4>$24,500</h4>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card text-center shadow-sm p-3">
+        <h6>Customers</h6>
+        <h4>320</h4>
+      </div>
+    </div>
+
+    <div class="col-md-3 mb-3">
+      <div class="card text-center shadow-sm p-3">
+        <h6>Stock</h6>
+        <h4>58</h4>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ===================================================== -->
+  <!-- 💳 TRANSACTIONS -->
+  <!-- ===================================================== -->
+  <div class="card shadow-sm mt-4">
+    <div class="card-header">
+      <h6 class="mb-0">Recent Activity</h6>
+    </div>
+
+    <div class="card-body">
+
+      <div class="d-flex justify-content-between mb-3">
+        <div>
+          <strong>Uniform Purchase</strong><br>
+          <small>Today</small>
+        </div>
+        <span class="text-danger">- $120</span>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <div>
+          <strong>Bulk Order</strong><br>
+          <small>Yesterday</small>
+        </div>
+        <span class="text-success">+ $850</span>
+      </div>
+
+    </div>
+  </div>
+
+  {% include "includes/footer.html" %}
+
+</div>
+
+{% endblock content %}
