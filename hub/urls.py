@@ -23,5 +23,6 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('employees/', include('employees.urls')),
     path('uniform/', include('uniform.urls')),
+    path('leave/', include('leave.urls')),
     path('accounts/', include('allauth.urls')),
 ]

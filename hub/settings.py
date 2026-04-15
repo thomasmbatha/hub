@@ -67,6 +67,9 @@ INSTALLED_APPS = [
 
     # uniform
     'uniform',
+
+    # leave
+    'leave',
 ]
 
 MIDDLEWARE = [

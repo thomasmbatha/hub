@@ -13,10 +13,6 @@ def index(request):
     return render(request, 'pages/index.html', { 'segment': 'home' })
 
 
-def tables(request):
-    """Render the tables page."""
-    return render(request, 'pages/tables.html', { 'segment': 'tables' })
-
 def vr(request):
     """Render the virtual reality demo page."""
     return render(request, 'pages/virtual-reality.html', { 'segment': 'virtual_reality' })
