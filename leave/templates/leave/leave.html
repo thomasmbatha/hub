@@ -6,28 +6,37 @@
 <div class="container-fluid py-4">
 
   <!-- =========================
-       LEAVE APPLICATION + USER STATS
+       MAIN ROW (EQUAL HEIGHT FIXED)
   ========================= -->
-  <div class="row mb-4">
+  <div class="row mb-4 align-items-stretch g-4">
 
-    <!-- FORM -->
-    <div class="col-lg-6 col-12">
-      <div class="card">
+    <!-- =========================
+         LEFT: LEAVE FORM (FULL HEIGHT)
+    ========================= -->
+    <div class="col-lg-6 col-12 d-flex">
+
+      <div class="card h-100 w-100">
+
         <div class="card-header pb-0">
           <h6>Apply for Leave</h6>
         </div>
 
-        <div class="card-body">
+        <div class="card-body d-flex flex-column">
 
-          <form>
+          <form class="flex-grow-1">
 
             <!-- Leave Type -->
             <div class="mb-3">
               <label class="form-label">Leave Type</label>
               <select class="form-control">
-                <option>Annual Leave</option>
-                <option>Sick Leave</option>
-                <option>Emergency Leave</option>
+                <option>Annual</option>
+                <option>Sick</option>
+                <option>Maternity</option>
+                <option>Paternity</option>
+                <option>Emergency</option>
+                <option>Study</option>
+                <option>Unpaid</option>
+                <option>Force</option>
               </select>
             </div>
 
@@ -46,19 +55,17 @@
             <!-- Duration -->
             <div class="mt-3">
               <label class="form-label">Number of Days</label>
-              <input type="number" class="form-control" placeholder="Auto or manual">
+              <input type="number" class="form-control" placeholder="e.g 5 days">
             </div>
 
-            <!-- Supervisor -->
-            <div class="mt-3">
-              <label class="form-label">Supervisor</label>
-              <input type="text" class="form-control" placeholder="Manager / Captain">
-            </div>
-
-            <!-- Reason -->
-            <div class="mt-3">
-              <label class="form-label">Reason</label>
-              <textarea class="form-control" rows="3"></textarea>
+            <!-- Senior -->
+            <div class="mb-3 mt-3">
+              <label class="form-label">Senior</label>
+              <select class="form-control">
+                <option>Senior 1</option>
+                <option>Senior 2</option>
+                <option>Senior 3</option>
+              </select>
             </div>
 
             <!-- Submit -->
@@ -70,11 +77,16 @@
 
         </div>
       </div>
+
     </div>
 
-    <!-- INDIVIDUAL STATS -->
-    <div class="col-lg-6 col-12">
-      <div class="card">
+    <!-- =========================
+         RIGHT SIDE STACK (FULL HEIGHT)
+    ========================= -->
+    <div class="col-lg-6 col-12 d-flex flex-column">
+
+      <!-- LEAVE OVERVIEW -->
+      <div class="card mb-4">
         <div class="card-header pb-0">
           <h6>Your Leave Overview</h6>
         </div>
@@ -104,205 +116,285 @@
 
           <p class="text-sm mb-2">✔ Last Approved: 10 Apr 2026</p>
           <p class="text-sm mb-2">⏳ Next Leave: 20 Apr 2026</p>
-          <p class="text-sm mb-0">⚠ Max allowed per month: 10 days</p>
+          <p class="text-sm mb-0">⚠ Max employees allowed leave: 2 Staff Members</p>
 
         </div>
       </div>
-    </div>
 
+      <!-- RIGHT CARDS WRAPPER (FLEX GROW) -->
+      <div class="row flex-grow-1 g-4">
+
+        <!-- LEAVE TIMELINE -->
+        <div class="col-lg-6 col-12 d-flex">
+          <div class="card h-100 w-100">
+
+            <div class="card-header pb-0">
+              <h6>Leave Timeline</h6>
+            </div>
+
+            <div class="card-body">
+
+              <p class="text-sm mb-2">John Michael</p>
+              <div class="progress mb-3">
+                <div class="progress-bar bg-success" style="width: 70%"></div>
+              </div>
+
+              <p class="text-sm mb-2">Alexa Liras</p>
+              <div class="progress mb-3">
+                <div class="progress-bar bg-info" style="width: 40%"></div>
+              </div>
+
+              <p class="text-xs text-secondary">
+                Shows leave progress duration
+              </p>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- UPCOMING LEAVE -->
+        <div class="col-lg-6 col-12 d-flex">
+          <div class="card h-100 w-100">
+
+            <div class="card-header pb-0">
+              <h6>Upcoming Leave</h6>
+            </div>
+
+            <div class="card-body">
+
+              <div class="d-flex justify-content-between mb-2">
+                <span class="text-sm">20 Apr</span>
+                <span class="text-sm">John</span>
+              </div>
+
+              <div class="d-flex justify-content-between mb-2">
+                <span class="text-sm">22 Apr</span>
+                <span class="text-sm">Alexa</span>
+              </div>
+
+              <div class="d-flex justify-content-between mb-2">
+                <span class="text-sm">25 Apr</span>
+                <span class="text-sm">Michael</span>
+              </div>
+
+              <p class="text-xs text-secondary mt-2">
+                Next scheduled absences
+              </p>
+
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
   </div>
 
   <!-- =========================
-       LEAVE INSIGHTS + KPI
+       TABLE
   ========================= -->
-  <div class="card mb-4">
-    <div class="card-header pb-0">
-      <h6>Leave Insights</h6>
-    </div>
+{% load static %}
 
-    <div class="card-body">
+<!-- =========================================================
+     PROJECTS / LEAVE TABLE CARD (UPDATED CLEAN VERSION)
+     ========================================================= -->
+<div class="row">
+  <div class="col-12">
 
-      <div class="row mb-3">
+    <div class="card mb-4">
 
-        <div class="col-lg-3 col-md-6 col-6">
-          <p class="text-sm mb-0">Employees on Leave</p>
-          <h5>12</h5>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-6">
-          <p class="text-sm mb-0">Pending</p>
-          <h5>5</h5>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-6">
-          <p class="text-sm mb-0">Departments</p>
-          <h5>4</h5>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-6">
-          <p class="text-sm mb-0">Avg Days</p>
-          <h5>6.2</h5>
-        </div>
-
-      </div>
-
-      <hr>
-
-      <p class="text-sm mb-2">⚠ High leave volume in Flight Ops</p>
-      <p class="text-sm mb-2">✈ 3 Pilots unavailable this week</p>
-      <p class="text-sm mb-0">📊 Peak leave period: April</p>
-
-    </div>
-  </div>
-
-<!-- =========================
-     OPERATIONS OVERVIEW
-========================= -->
-<div class="row mb-4">
-
-  <!-- LEAVE TIMELINE -->
-  <div class="col-lg-4 col-12">
-    <div class="card">
+      <!-- ================= CARD HEADER ================= -->
       <div class="card-header pb-0">
-        <h6>Leave Timeline</h6>
+        <h6>Leave Table</h6>
       </div>
-      <div class="card-body">
 
-        <p class="text-sm mb-2">John Michael</p>
-        <div class="progress mb-3">
-          <div class="progress-bar bg-success" style="width: 70%"></div>
+      <!-- ================= CARD BODY ================= -->
+      <div class="card-body px-0 pt-0 pb-2">
+        <div class="table-responsive p-0">
+
+          <!-- ================= TABLE ================= -->
+          <table class="table align-items-center justify-content-center mb-0">
+
+            <!-- ================= TABLE HEAD ================= -->
+            <thead>
+              <tr>
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                  Employee
+                </th>
+
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                  Job Title
+                </th>
+
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                  Type
+                </th>
+
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                  From
+                </th>
+
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                  To
+                </th>
+
+                <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                  Status
+                </th>
+              </tr>
+            </thead>
+
+            <!-- ================= TABLE BODY ================= -->
+            <tbody>
+
+              <!-- ================= ROW 1 ================= -->
+              <tr>
+
+                <!-- Employee -->
+                <td>
+                  <div class="d-flex align-items-center px-2">
+
+                    <div class="avatar avatar-sm bg-primary rounded-circle d-flex align-items-center justify-content-center text-white me-2">
+                      S
+                    </div>
+
+                    <h6 class="mb-0 text-sm">Sandra</h6>
+
+                  </div>
+                </td>
+
+                <!-- Job Title -->
+                <td>
+                  <p class="text-sm font-weight-bold mb-0">Ramp Controller</p>
+                </td>
+
+                <!-- Type -->
+                <td>
+                  <span class="badge bg-warning">Annual</span>
+                </td>
+
+                <!-- From -->
+                <td class="text-sm">01 Apr 2026</td>
+
+                <!-- To -->
+                <td class="text-sm">05 Apr 2026</td>
+
+                <!-- Status -->
+                <td>
+                  <span class="text-success font-weight-bold">Approved</span>
+                </td>
+
+              </tr>
+
+              <!-- ================= ROW 2 ================= -->
+              <tr>
+
+                <td>
+                  <div class="d-flex align-items-center px-2">
+
+                    <div class="avatar avatar-sm bg-success rounded-circle d-flex align-items-center justify-content-center text-white me-2">
+                      J
+                    </div>
+
+                    <h6 class="mb-0 text-sm">John</h6>
+
+                  </div>
+                </td>
+
+                <td>
+                  <p class="text-sm font-weight-bold mb-0">HR Manager</p>
+                </td>
+
+                <td>
+                  <span class="text-info font-weight-bold">Sick</span>
+                </td>
+
+                <td class="text-sm">10 Apr 2026</td>
+                <td class="text-sm">12 Apr 2026</td>
+
+                <td>
+                  <span class="text-warning font-weight-bold">Pending</span>
+                </td>
+
+              </tr>
+
+              <!-- ================= ROW 3 ================= -->
+              <tr>
+
+                <td>
+                  <div class="d-flex align-items-center px-2">
+
+                    <div class="avatar avatar-sm bg-danger rounded-circle d-flex align-items-center justify-content-center text-white me-2">
+                      J
+                    </div>
+
+                    <h6 class="mb-0 text-sm">Jose</h6>
+
+                  </div>
+                </td>
+
+                <td>
+                  <p class="text-sm font-weight-bold mb-0">Developer</p>
+                </td>
+
+                <td>
+                  <span class="text-danger font-weight-bold">Emergency</span>
+                </td>
+
+                <td class="text-sm">15 Apr 2026</td>
+                <td class="text-sm">16 Apr 2026</td>
+
+                <td>
+                  <span class="text-danger font-weight-bold">Rejected</span>
+                </td>
+
+              </tr>
+
+              <!-- ================= ROW 4 ================= -->
+              <tr>
+
+                <td>
+                  <div class="d-flex align-items-center px-2">
+
+                    <div class="avatar avatar-sm bg-warning rounded-circle d-flex align-items-center justify-content-center text-white me-2">
+                      M
+                    </div>
+
+                    <h6 class="mb-0 text-sm">Mikyle</h6>
+
+                  </div>
+                </td>
+
+                <td>
+                  <p class="text-sm font-weight-bold mb-0">Designer</p>
+                </td>
+
+                <td>
+                  <span class="text-secondary font-weight-bold">Study</span>
+                </td>
+
+                <td class="text-sm">20 Apr 2026</td>
+                <td class="text-sm">25 Apr 2026</td>
+
+                <td>
+                  <span class="text-success font-weight-bold">Approved</span>
+                </td>
+
+              </tr>
+
+            </tbody>
+          </table>
+          <!-- ================= TABLE END ================= -->
+
         </div>
-
-        <p class="text-sm mb-2">Alexa Liras</p>
-        <div class="progress mb-3">
-          <div class="progress-bar bg-info" style="width: 40%"></div>
-        </div>
-
-        <p class="text-xs text-secondary">Shows leave progress duration</p>
-
       </div>
+
     </div>
+
   </div>
-
-  <!-- DEPARTMENT LOAD -->
-  <div class="col-lg-4 col-12">
-    <div class="card">
-      <div class="card-header pb-0">
-        <h6>Department Load</h6>
-      </div>
-      <div class="card-body">
-
-        <p class="text-sm mb-2">Flight Ops</p>
-        <div class="progress mb-3">
-          <div class="progress-bar bg-danger" style="width: 80%"></div>
-        </div>
-
-        <p class="text-sm mb-2">Cabin Crew</p>
-        <div class="progress mb-3">
-          <div class="progress-bar bg-success" style="width: 30%"></div>
-        </div>
-
-        <p class="text-xs text-secondary">High % = understaffed risk</p>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- UPCOMING LEAVE -->
-  <div class="col-lg-4 col-12">
-    <div class="card">
-      <div class="card-header pb-0">
-        <h6>Upcoming Leave</h6>
-      </div>
-      <div class="card-body">
-
-        <div class="d-flex justify-content-between">
-          <span class="text-sm">20 Apr</span>
-          <span class="text-sm">John</span>
-        </div>
-
-        <div class="d-flex justify-content-between">
-          <span class="text-sm">22 Apr</span>
-          <span class="text-sm">Alexa</span>
-        </div>
-
-        <div class="d-flex justify-content-between">
-          <span class="text-sm">25 Apr</span>
-          <span class="text-sm">Michael</span>
-        </div>
-
-        <p class="text-xs text-secondary mt-2">Next scheduled absences</p>
-
-      </div>
-    </div>
-  </div>
-
 </div>
-
-  <!-- =========================
-       FIXED TABLE (ALIGNED)
-  ========================= -->
-  <div class="card">
-
-    <div class="card-header pb-0 d-flex justify-content-between">
-      <h6>Leave Records</h6>
-      <span class="badge bg-gradient-info">System Live</span>
-    </div>
-
-    <div class="card-body px-0 pt-0 pb-2">
-
-      <div class="table-responsive">
-
-        <table class="table align-items-center mb-0">
-
-          <thead class="bg-light">
-            <tr>
-              <th class="text-xs">Employee</th>
-              <th class="text-xs">Role</th>
-              <th class="text-xs text-center">Type</th>
-              <th class="text-xs text-center">From</th>
-              <th class="text-xs text-center">To</th>
-              <th class="text-xs text-center">Status</th>
-              <th class="text-xs text-center">Actions</th>
-            </tr>
-          </thead>
-
-          <tbody>
-
-            <tr>
-              <td>John Michael</td>
-              <td>Pilot</td>
-              <td class="text-center"><span class="badge bg-warning">Annual</span></td>
-              <td class="text-center">01 Apr</td>
-              <td class="text-center">10 Apr</td>
-              <td class="text-center"><span class="badge bg-success">Approved</span></td>
-              <td class="text-center">
-                <button class="btn btn-sm btn-outline-success">✔</button>
-                <button class="btn btn-sm btn-outline-danger">✖</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>Alexa Liras</td>
-              <td>Cabin Crew</td>
-              <td class="text-center"><span class="badge bg-info">Sick</span></td>
-              <td class="text-center">12 Apr</td>
-              <td class="text-center">15 Apr</td>
-              <td class="text-center"><span class="badge bg-secondary">Pending</span></td>
-              <td class="text-center">
-                <button class="btn btn-sm btn-outline-success">✔</button>
-                <button class="btn btn-sm btn-outline-danger">✖</button>
-              </td>
-            </tr>
-
-          </tbody>
-
-        </table>
-
-      </div>
-    </div>
-
-  </div>
+          <!-- ================= TABLE END ================= -->
 
   {% include "includes/footer.html" %}
 

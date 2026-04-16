@@ -35,7 +35,6 @@ def register(request):
         if form.is_valid():
             user = form.save()
 
-            # 🔥 IMPORTANT FIX: attach backend manually
             user = authenticate(
                 username=user.username,
                 password=request.POST.get("password1")
