@@ -6,6 +6,4 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('vr/', views.vr, name='vr'),
     path('rtl/', views.rtl, name='rtl'),
-
-    
 ]

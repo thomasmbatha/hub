@@ -123,22 +123,9 @@
     background: radial-gradient(circle at 20% 20%, #00e5ff 0%, #001b3d 40%, #000814 100%);
   }
 
-.cart-sidebar {
-    position: fixed;
-    top: 0;
-    right: -380px;
-    width: 350px;
-    height: 100vh;
-    background: white;
-    box-shadow: -2px 0 15px rgba(0,0,0,0.2);
-    transition: 0.3s ease;
-    z-index: 99999;
-    padding: 15px;
-}
 
-.cart-sidebar.open {
-    right: 0;
-}
+
+
 </style>
 
 <!-- HEADER -->
@@ -269,71 +256,58 @@
 <script>
 let currentProductId = null;
 
+// ✅ OPEN MODAL WITH REAL DATA
 function openProduct(id, image, title, price) {
-    currentProductId = id;
+  currentProductId = id;
 
-    document.getElementById("modalImage").src = image;
-    document.getElementById("modalTitle").innerText = title;
-    document.getElementById("modalPrice").innerText = "R " + price;
+  document.getElementById("modalImage").src = image;
+  document.getElementById("modalTitle").innerText = title;
+  document.getElementById("modalPrice").innerText = "R " + price;
 }
 
+// ✅ ADD TO CART FROM MODAL
 function addToCart() {
-    let qty = document.getElementById("modalQty").value;
+  let qty = document.getElementById("modalQty").value;
 
-    fetch("{% url 'add_to_cart' %}", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "X-CSRFToken": "{{ csrf_token }}"
-        },
-        body: new URLSearchParams({
-            product_id: currentProductId,
-            quantity: qty
-        })
+  fetch("{% url 'add_to_cart' %}", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "X-CSRFToken": "{{ csrf_token }}"
+    },
+    body: new URLSearchParams({
+      product_id: currentProductId,
+      quantity: qty
     })
-    .then(res => res.json())
-    .then(data => {
-        loadCart();        // 🔥 refresh cart content
-        updateCartCount(); // 🔥 update badge
-        toggleCart();      // 🔥 open sidebar
-    });
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert("Added to cart ✅");
+    }
+  });
 }
 
+// ✅ QUICK ADD BUTTON
 function quickAdd(productId) {
-    fetch("{% url 'add_to_cart' %}", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            "X-CSRFToken": "{{ csrf_token }}"
-        },
-        body: new URLSearchParams({
-            product_id: productId,
-            quantity: 1
-        })
+  fetch("{% url 'add_to_cart' %}", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      "X-CSRFToken": "{{ csrf_token }}"
+    },
+    body: new URLSearchParams({
+      product_id: productId,
+      quantity: 1
     })
-    .then(res => res.json())
-    .then(data => {
-        loadCart();
-        updateCartCount();
-        toggleCart();
-    });
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.success) {
+      alert("Added to cart ✅");
+    }
+  });
 }
 </script>
+
 {% endblock content %}
-
-<!-- 🛒 CART SIDEBAR (PASTE HERE) -->
-<div id="cartSidebar" class="cart-sidebar">
-    <div class="cart-header">
-        <h5>Your Cart</h5>
-        <button onclick="toggleCart()">✕</button>
-    </div>
-
-    <div id="cartItems">
-        <!-- Filled dynamically -->
-    </div>
-
-    <div class="cart-footer">
-        <strong>Total: R <span id="cartTotal">0</span></strong>
-    </div>
-</div>
-

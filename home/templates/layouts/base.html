@@ -13,6 +13,79 @@
 </head>
 
 <body class="g-sidenav-show  bg-gray-100">
+
+  <style>
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 9998;
+}
+
+.cart-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -380px;
+    width: 350px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 15px rgba(0,0,0,0.2);
+    transition: 0.3s ease;
+    z-index: 99999;
+    padding: 15px;
+}
+
+.cart-sidebar.open {
+    right: 0;
+}
+
+.cart-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.4);
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s;
+    z-index: 9998;
+}
+
+.cart-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.cart-sidebar {
+    position: fixed;
+    top: 0;
+    right: -380px;
+    width: 350px;
+    height: 100vh;
+    background: white;
+    box-shadow: -2px 0 15px rgba(0,0,0,0.2);
+    transition: 0.3s ease;
+    z-index: 99999;
+    padding: 15px;
+}
+
+.cart-sidebar.open {
+    right: 0;
+}
+</style>
+
   {% block sidebar %}
     {% include "includes/sidebar.html" %}
   {% endblock sidebar %}
@@ -30,6 +103,108 @@
   
   {% include "includes/scripts.html" %}
   {% block extra_js %}{% endblock extra_js %}
+
+  <!-- 🛒 CART OVERLAY -->
+<div id="cartOverlay" onclick="toggleCart()" class="cart-overlay"></div>
+
+<!-- 🛒 CART SIDEBAR -->
+<div id="cartSidebar" class="cart-sidebar">
+
+    <div class="cart-header">
+        <h5>Your Cart</h5>
+        <button onclick="toggleCart()">✕</button>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-footer">
+        <strong>Total: R <span id="cartTotal">0</span></strong>
+    </div>
+
+</div>
+
+<!-- 🛒 CART OVERLAY -->
+<div id="cartOverlay" class="cart-overlay" onclick="toggleCart()"></div>
+
+<!-- 🛒 CART SIDEBAR -->
+<div id="cartSidebar" class="cart-sidebar">
+
+    <div class="cart-header">
+        <h5>Your Cart</h5>
+        <button onclick="toggleCart()">✕</button>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="cart-footer">
+        <strong>Total: R <span id="cartTotal">0</span></strong>
+    </div>
+
+</div>
+
+<script>
+  
+function toggleCart() {
+    document.getElementById("cartSidebar").classList.toggle("open");
+    document.getElementById("cartOverlay").classList.toggle("active");
+    loadCart();
+}
+
+function loadCart() {
+    fetch("{% url 'cart_json' %}")
+        .then(res => res.json())
+        .then(data => {
+
+            let container = document.getElementById("cartItems");
+            container.innerHTML = "";
+
+            data.items.forEach(item => {
+                container.innerHTML += `
+                    <div style="display:flex; gap:10px; margin-bottom:10px;">
+                        <img src="${item.image}" width="50" style="border-radius:8px;">
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            Qty: ${item.quantity}<br>
+                            R ${item.subtotal}
+                        </div>
+                    </div>
+                `;
+            });
+
+            document.getElementById("cartTotal").innerText = data.total;
+        });
+}
+
+function updateCartCount() {
+    fetch("{% url 'cart_json' %}")
+        .then(res => res.json())
+        .then(data => {
+            let el = document.getElementById("cartCount");
+            if (el) el.innerText = data.count;
+        });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    updateCartCount();
+});
+
+
+  function updateCartCount() {
+    fetch("{% url 'cart_json' %}")
+        .then(res => res.json())
+        .then(data => {
+            let el = document.getElementById("cartCount");
+
+            if (el) {
+                el.innerText = data.count;
+            }
+        });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    updateCartCount();
+});
+</script>
 </body>
 
 </html>
