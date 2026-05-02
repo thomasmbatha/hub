@@ -3,6 +3,9 @@ from django.shortcuts import render, redirect
 from .models import Employee
 from .forms import EmployeeForm
 from django.utils import timezone
+from datetime import date
+
+import calendar
 
 def profile(request):
     employee = None
@@ -60,3 +63,39 @@ def edit_profile(request):
     return render(request, 'employees/edit_profile.html', {
         'form': form
     })
+
+# =========================
+# CALENDAR DATA
+# =========================
+
+def profile(request):
+    employee = None
+
+    if request.user.is_authenticated:
+        employee = Employee.objects.filter(user=request.user).first()
+
+    context = {
+        "employee": employee,
+        "segment": "profile",
+        "jan_days": list(range(1, 32)),
+        "feb_days": list(range(1, 29)),
+        "mar_days": list(range(1, 32)),
+        "apr_days": list(range(1, 31)),
+        "may_days": list(range(1, 32)),
+        "jun_days": list(range(1, 31)),
+    }
+
+    return render(request, "employees/profile.html", context)
+
+def build_month(year, month):
+    cal = calendar.Calendar(firstweekday=0)  # Monday start
+
+    return [
+        {
+            "day": d.day,
+            "weekday": d.weekday(),
+            "date": date(year, month, d.day) if d.month == month else None
+        }
+        for d in cal.itermonthdates(year, month)
+    ]
+

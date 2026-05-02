@@ -1,0 +1,69 @@
+/* =========================
+   AIR TRAFFIC CONTROL HEADER
+========================= */
+
+.atc-header {
+  position: relative;
+  overflow: hidden;
+  background: radial-gradient(circle at 20% 20%, #00e5ff 0%, #001b3d 40%, #000814 100%);
+}
+
+.atc-mask {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, rgba(0,0,0,0.6), rgba(0,120,255,0.15), rgba(0,0,0,0.8));
+  backdrop-filter: blur(2px);
+}
+
+/* RADAR */
+.radar-scan {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  top: 50%;
+  left: 20%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, transparent, rgba(0,229,255,0.2), transparent);
+  animation: radarSpin 4s linear infinite;
+  opacity: 0.5;
+}
+
+@keyframes radarSpin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* LINES */
+.flight-lines {
+  position: absolute;
+  width: 200%;
+  height: 100%;
+  background-image: linear-gradient(90deg, transparent 95%, rgba(0,229,255,0.15) 100%);
+  background-size: 60px 100%;
+  animation: moveLines 6s linear infinite;
+  opacity: 0.2;
+}
+
+@keyframes moveLines {
+  from { transform: translateX(0); }
+  to { transform: translateX(-60px); }
+}
+
+/* AVATAR */
+.atc-avatar img {
+  border: 2px solid rgba(0, 229, 255, 0.6);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
+}
+
+/* TEXT */
+.atc-text-glow {
+  text-shadow: 0 0 12px rgba(0, 229, 255, 0.7);
+}
+
+/* BUTTON */
+.btn-brand-gradient {
+  background: linear-gradient(135deg, #04154D 0%, #00D4FF 100%);
+  border: none;
+  box-shadow: 0 4px 15px rgba(4, 21, 77, 0.3);
+}
